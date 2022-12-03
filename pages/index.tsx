@@ -14,15 +14,11 @@ export default function Home() {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-
-      <h1>Netflix</h1>
-      {/* <main className={styles.main}>
-        <h1>Netflix</h1>
-      </main> */}
-      {/* <NavBar />
-      <Banner />
-      <Card /> */}
-      <Banner />
+      <Banner
+        title='Clifford the red dog'
+        subtitle='a very cute dog'
+        imgUrl='/static/clifford.webp'
+      />
 
       <footer className={styles.footer}></footer>
     </div>
