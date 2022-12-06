@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Image from 'next/image';
 import styles from './Banner.module.css';
 
 interface BannerProps {
@@ -28,6 +29,12 @@ function Banner(props: BannerProps) {
 
           <div className={styles.playBtnWrapper}>
             <button className={styles.btnWithIcon} onClick={handleOnPlay}>
+              <Image
+                src='/static/play_arrow.svg'
+                alt='Play Icon'
+                width={24}
+                height={24}
+              />
               <span className={styles.playText}>Play</span>
             </button>
           </div>
