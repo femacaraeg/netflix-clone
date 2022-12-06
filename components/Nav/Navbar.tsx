@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { EventHandler, SyntheticEvent, useState } from 'react';
 
 import Link from 'next/link';
+import Image from 'next/image';
+
 import styles from './Navbar.module.css';
 
 interface NavbarProps {
@@ -9,28 +11,58 @@ interface NavbarProps {
 
 function Navbar(props: NavbarProps) {
   const { username } = props;
+
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleShowDropdown = (e: any) => {
+    e.preventDefault();
+    setShowDropdown(!showDropdown);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <a className={styles.logoLink}>
-          <div className={styles.logoWrapper}>Netflix</div>
-        </a>
+        <Link className={styles.logoLink} href='/'>
+          <div className={styles.logoWrapper}>
+            <Image
+              src='/static/netflix.svg'
+              alt='Netflix Logo'
+              width={128}
+              height={34}
+            />
+          </div>
+        </Link>
         <ul className={styles.navItems}>
-          <li className={styles.navItem}>Home</li>
-          <li className={styles.navItem2}>My List</li>
+          <li className={styles.navItem}>
+            <Link href='/'>Home</Link>
+          </li>
+          <li className={styles.navItem2}>
+            <Link href='/browse/my-list'>My List</Link>
+          </li>
         </ul>
         <nav className={styles.navContainer}>
           <div>
-            <button className={styles.usernameBtn}>
+            <button className={styles.usernameBtn} onClick={handleShowDropdown}>
               <p className={styles.username}>{username}</p>
+              <Image
+                src='/static/expand_more.svg'
+                alt='Expand more'
+                width={24}
+                height={24}
+              />
+
               {/* Expand more icon */}
             </button>
-            <div className={styles.navDropdown}>
-              <div>
-                <a className={styles.linkName}>Sign out</a>
-                <div className={styles.lineWrapper}></div>
+            {showDropdown && (
+              <div className={styles.navDropdown}>
+                <div className={styles.dropDown}>
+                  <Link href='/login' className={styles.linkName}>
+                    Sign out
+                  </Link>
+                  <div className={styles.lineWrapper}></div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </nav>
       </div>
