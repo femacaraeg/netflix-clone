@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import Banner from '../components/Banner/Banner';
+import Navbar from '../components/Nav/Navbar';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Navbar username='Fe Macaraeg' />
       <Banner
         title='Clifford the red dog'
         subtitle='a very cute dog'
