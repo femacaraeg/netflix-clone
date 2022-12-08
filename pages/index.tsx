@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Banner from '../components/Banner/Banner';
 import Navbar from '../components/Nav/Navbar';
 import Card from '../components/Card/Card';
+import SectionCard from '../components/Card/SectionCard';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         subtitle='a very cute dog'
         imgUrl='/static/clifford.webp'
       />
+      <SectionCard title='movies' />
       <Card imgUrl='/static/clifford.webp' size='small' />
       <Card size='medium' />
       <Card imgUrl='/static/clifford.webp' size='large' />
