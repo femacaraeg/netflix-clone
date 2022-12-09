@@ -37,8 +37,6 @@ function Card(props: CardProps) {
           transition: { duration: 1 },
         }}
       >
-        {' '}
-        card
         <Image
           src={imgSrc}
           alt='image'

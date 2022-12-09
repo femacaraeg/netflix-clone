@@ -23,7 +23,8 @@ export default function Home() {
         subtitle='a very cute dog'
         imgUrl='/static/clifford.webp'
       />
-      <SectionCard title='movies' />
+      <SectionCard title='Disney' />
+
       <Card imgUrl='/static/clifford.webp' size='small' />
       <Card size='medium' />
       <Card imgUrl='/static/clifford.webp' size='large' />
