@@ -6,9 +6,15 @@ import SectionCards from '../components/Card/SectionCards';
 import { getVideos } from '../lib/videos';
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
-  const disneyVideos = getVideos();
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const disneyVideos = await getVideos();
+  // Pass data to the page via props
+  return { props: { disneyVideos } };
+}
 
+export default function Home(props: any) {
+  const { disneyVideos } = props;
   return (
     <div className={styles.container}>
       <Head>
