@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 
 import styles from '../styles/Login.module.css';
 
-function login() {
-  const handleLoginWithEmail = async (e: any) => {
-    e.preventDefault();
+function Login() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState<string>('');
+  const [userMsg, setUserMsg] = useState<string>('');
+
+  const handleOnChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserMsg('');
+    console.log('event', e);
+    const email = e.target.value;
+    setEmail(email);
+  };
+
+  const handleLoginWithEmail = async (e: React.SyntheticEvent) => {
     console.log('hi button');
+
+    e.preventDefault();
+    if (email) {
+      if (email === 'femacaraeg@gmail.com') {
+        // route to dashboard
+        router.push('/');
+      } else {
+        console.log('Something went wrong logging in');
+      }
+    } else {
+      // show user message
+      setUserMsg('Enter a valid email address');
+    }
   };
 
   return (
@@ -41,9 +66,10 @@ function login() {
             type='text'
             placeholder='Email address'
             className={styles.emailInput}
+            onChange={handleOnChangeEmail}
           />
 
-          <p className={styles.userMsg}></p>
+          <p className={styles.userMsg}>{userMsg}</p>
           <button onClick={handleLoginWithEmail} className={styles.loginBtn}>
             Sign In
           </button>
@@ -53,4 +79,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;
