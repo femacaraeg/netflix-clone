@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react';
 
 import { useRouter } from 'next/router';
+import { magic } from '../lib/magic-client';
 import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -27,9 +28,14 @@ function Login() {
     if (email) {
       if (email === 'femacaraeg@gmail.com') {
         // route to dashboard
-        router.push('/');
+        try {
+          const didToken = await magic?.auth.loginWithMagicLink({ email });
+          console.log({ didToken });
+        } catch (error) {
+          console.error('Something went wrong logging in', error);
+        }
       } else {
-        console.log('Something went wrong logging in');
+        setUserMsg('Something went wrong logging in');
       }
     } else {
       // show user message
