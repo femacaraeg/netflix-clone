@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 import { magic } from '../lib/magic-client';
@@ -13,6 +13,20 @@ function Login() {
 
   const [email, setEmail] = useState<string>('');
   const [userMsg, setUserMsg] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleComplete = () => {
+      setIsLoading(false);
+    };
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
+  }, [router]);
 
   const handleOnChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserMsg('');
@@ -25,20 +39,27 @@ function Login() {
     console.log('hi button');
 
     e.preventDefault();
+    setIsLoading(true);
     if (email) {
       if (email === 'femacaraeg@gmail.com') {
         // route to dashboard
         try {
           const didToken = await magic?.auth.loginWithMagicLink({ email });
-          console.log({ didToken });
+          if (didToken) {
+            setIsLoading(false);
+            router.push('/');
+          }
         } catch (error) {
           console.error('Something went wrong logging in', error);
+          setIsLoading(false);
         }
       } else {
+        setIsLoading(false);
         setUserMsg('Something went wrong logging in');
       }
     } else {
       // show user message
+      setIsLoading(false);
       setUserMsg('Enter a valid email address');
     }
   };
@@ -77,7 +98,7 @@ function Login() {
 
           <p className={styles.userMsg}>{userMsg}</p>
           <button onClick={handleLoginWithEmail} className={styles.loginBtn}>
-            Sign In
+            {isLoading ? 'Loading...' : 'Sign In'}
           </button>
         </div>
       </main>
