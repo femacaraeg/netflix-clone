@@ -34,7 +34,7 @@ export default function Home(props: any) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div className={styles.main}>
-        <Navbar username='Fe Macaraeg' />
+        <Navbar />
         <Banner
           title='Clifford the red dog'
           subtitle='a very cute dog'

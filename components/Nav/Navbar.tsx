@@ -1,23 +1,34 @@
-import React, { EventHandler, SyntheticEvent, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { magic } from '../../lib/magic-client';
 
 import styles from './Navbar.module.css';
 
-interface NavbarProps {
-  username: string;
-}
-
-function Navbar(props: NavbarProps) {
-  const { username } = props;
-
+function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [username, setUsername] = useState('');
 
   const handleShowDropdown = (e: any) => {
     e.preventDefault();
     setShowDropdown(!showDropdown);
   };
+
+  useEffect(() => {
+    async function getUsername() {
+      try {
+        const { email } = await magic?.user.getMetadata();
+        if (email) {
+          setUsername(email);
+        }
+      } catch (error) {
+        console.log('Error retrieving email:', error);
+      }
+    }
+
+    getUsername();
+  }, []);
 
   return (
     <div className={styles.container}>
