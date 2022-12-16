@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { magic } from '../../lib/magic-client';
 
 import styles from './Navbar.module.css';
@@ -9,6 +10,8 @@ import styles from './Navbar.module.css';
 function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [username, setUsername] = useState('');
+
+  const router = useRouter();
 
   const handleShowDropdown = (e: any) => {
     e.preventDefault();
@@ -29,6 +32,19 @@ function Navbar() {
 
     getUsername();
   }, []);
+
+  const handleSignout = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      await magic?.user.logout();
+      console.log(await magic?.user.isLoggedIn());
+      router.push('/login');
+    } catch (error) {
+      console.error('Error loggin out', error);
+      router.push('/login');
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -67,9 +83,9 @@ function Navbar() {
             {showDropdown && (
               <div className={styles.navDropdown}>
                 <div className={styles.dropDown}>
-                  <Link href='/login' className={styles.linkName}>
+                  <a onClick={handleSignout} className={styles.linkName}>
                     Sign out
-                  </Link>
+                  </a>
                   <div className={styles.lineWrapper}></div>
                 </div>
               </div>

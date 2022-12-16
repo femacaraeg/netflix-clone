@@ -30,7 +30,6 @@ function Login() {
 
   const handleOnChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserMsg('');
-    console.log('event', e);
     const email = e.target.value;
     setEmail(email);
   };
