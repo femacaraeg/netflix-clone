@@ -25,9 +25,9 @@ function Video() {
           id='ytplayer'
           width='100%'
           height='360'
+          className={styles.videoPlayer}
           src={`https://www.youtube.com/embed/${router.query.videoId}?autoplay=0&origin=http://example.com&controls=0&rel=1`}
         ></iframe>
-        <div>Modal body</div>
       </Modal>
     </div>
   );
