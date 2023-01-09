@@ -1,26 +1,50 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-
-import styles from '../../styles/Video.module.css';
 
 import { useRouter } from 'next/router';
 
+import styles from '../../styles/Video.module.css';
+
 Modal.setAppElement('#__next');
 
-function Video() {
-  const router = useRouter();
+interface videoProps {
+  video: {
+    title: string;
+    publishTime: string;
+    description: string;
+    channelTitle: string;
+    viewCount: number;
+  };
+}
 
-  console.log({ router });
-
+export async function getStaticProps() {
+  // data to fetch from API
   const video = {
     title: 'Hi cute dog',
     publishTime: '1990-01-01',
     description:
-      'A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger?',
+      'A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger?',
     channelTitle: 'Paramount Pictures',
     viewCount: 10000,
   };
+
+  return {
+    props: { video },
+    revalidate: 10, //In seconds
+  };
+}
+
+export async function getStaticPaths() {
+  const listOfVideos = ['mYfJxlgR2jw', '4zH5iYM4wJo', 'KCPEHsAViiQ'];
+  const paths = listOfVideos.map((videoId) => ({
+    params: { videoId },
+  }));
+
+  return { paths, fallback: 'blocking' };
+}
+
+function Video({ video }: videoProps) {
+  const router = useRouter();
 
   const { title, publishTime, description, channelTitle, viewCount } = video;
 
