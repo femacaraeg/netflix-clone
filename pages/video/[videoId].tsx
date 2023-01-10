@@ -19,18 +19,10 @@ interface videoProps {
   };
 }
 
-export async function getStaticProps() {
-  // data to fetch from API
-  // const video = {
-  //   title: 'Hi cute dog',
-  //   publishTime: '1990-01-01',
-  //   description:
-  //     'A big red dog that is super cute, can he get any bigger? A big red dog that is super cute, can he get any bigger?',
-  //   channelTitle: 'Paramount Pictures',
-  //   viewCount: 10000,
-  // };
+export async function getStaticProps(context: any) {
+  const params = context.params;
 
-  const videoId = '4zH5iYM4wJo';
+  const videoId = params.videoId;
 
   const videoArray = await getYoutubeVideoById(videoId);
 
