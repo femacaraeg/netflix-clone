@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 
 import { useRouter } from 'next/router';
 
+import Navbar from '../../components/Nav/Navbar';
 import styles from '../../styles/Video.module.css';
 
 import { getYoutubeVideoById } from '../../lib/videos';
@@ -54,6 +55,7 @@ function Video({ video }: videoProps) {
 
   return (
     <div className={styles.container}>
+      <Navbar />
       <Modal
         isOpen={true}
         contentLabel='Watch the video'
