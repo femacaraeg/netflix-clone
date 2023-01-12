@@ -21,9 +21,7 @@ interface videoProps {
 }
 
 export async function getStaticProps(context: any) {
-  const params = context.params;
-
-  const videoId = params.videoId;
+  const videoId = context.params.videoId;
 
   const videoArray = await getYoutubeVideoById(videoId);
 
