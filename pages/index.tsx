@@ -5,6 +5,7 @@ import Navbar from '../components/Nav/Navbar';
 import SectionCards from '../components/Card/SectionCards';
 import { getPopularVideos, getVideos } from '../lib/videos';
 import styles from '../styles/Home.module.css';
+import { startFetchMyQuery } from '../lib/hasura';
 
 export async function getServerSideProps() {
   // Fetch data from external API
@@ -23,6 +24,8 @@ export async function getServerSideProps() {
 export default function Home(props: any) {
   const { disneyVideos, travelVideos, productivityVideos, popularVideos } =
     props;
+
+  startFetchMyQuery();
   return (
     <div className={styles.container}>
       <Head>
