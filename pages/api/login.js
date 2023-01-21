@@ -23,14 +23,11 @@ export default async function login(req, res) {
             'x-hasura-user-id': `${metadata.issuer}`,
           },
         },
-        'thisisasecretthisisasecrett12345'
+        process.env.JWT_SECRET
       );
 
-      console.log({ token });
-
       // CHECK IF USER EXISTS
-
-      const isNewUserQuery = await isNewUser(token);
+      const isNewUserQuery = await isNewUser(token, metadata.issuer);
       res.send({ done: true, isNewUserQuery });
     } catch (error) {
       console.error('Something went wrong logging in', error);

@@ -35,8 +35,6 @@ function Login() {
   };
 
   const handleLoginWithEmail = async (e: React.SyntheticEvent) => {
-    console.log('hi button');
-
     e.preventDefault();
     setIsLoading(true);
     if (email) {
